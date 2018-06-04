@@ -1,13 +1,15 @@
 (ns pah.system
   (:require [com.stuartsierra.component :as component]
             [ring.adapter.jetty :refer [run-jetty]]
-            [pah.core :refer [routes]]))
+            [pah.core :refer [app-handler]]))
 
 (defrecord Server [server]
   component/Lifecycle
   (start [this]
     (if-not server
-      (assoc this :server (run-jetty (routes) {:port 3000 :join? false}))
+      (let [config {:port 3000 :join? false :send-server-version? false}
+            handler (app-handler)]
+        (assoc this :server (run-jetty handler config)))
       this))
   (stop [this]
     (if server

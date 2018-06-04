@@ -1,7 +1,8 @@
 (ns pah.core
   (:require [compojure.core :refer [GET] :as compojure]
             [compojure.route :refer [not-found]]
-            [hiccup.page :refer [html5]]))
+            [hiccup.page :refer [html5]]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (defn layout [{:keys [title] :or {title "Hatfaludy Paul-Alin"}} content]
   (html5
@@ -14,8 +15,12 @@
 (defn home-page [req]
   (layout
     {}
-    [:h1 "H"]))
+    [:h1 "HH"]))
 
 (defn routes []
   (compojure/routes
     (GET "/" [] home-page)))
+
+(defn app-handler []
+  (-> (routes)
+      (wrap-defaults site-defaults)))
