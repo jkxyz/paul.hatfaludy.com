@@ -9,8 +9,9 @@
     {:lang "en"}
     [:meta {:charset "utf-8"}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+    [:link {:rel "stylesheet" :href "/assets/styles.css"}]
     [:title title]
-    [:div content]))
+    content))
 
 (defn home-page [req]
   (layout
