@@ -1,0 +1,10 @@
+{:deps
+ {org.clojure/clojure {:mvn/version "1.10.0-alpha4"}
+  com.stuartsierra/component {:mvn/version "0.3.2"}
+  ring {:mvn/version "1.7.0-RC1"}
+  ring/ring-defaults {:mvn/version "0.3.2"}}
+ 
+ :aliases
+ {:repl {:extra-deps {cider/cider-nrepl {:mvn/version "0.18.0-SNAPSHOT"}
+                      org.clojure/tools.namespace {:mvn/version "0.2.11"}}
+         :extra-paths ["dev"]}}}
