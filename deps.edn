@@ -4,7 +4,10 @@
   ring {:mvn/version "1.7.0-RC1"}
   ring/ring-defaults {:mvn/version "0.3.2"}
   compojure {:mvn/version "1.6.1"}
-  hiccup {:mvn/version "1.0.5"}}
+  hiccup {:mvn/version "1.0.5"}
+  clj-http {:mvn/version "3.9.0"}
+  org.clojure/data.xml {:mvn/version "0.0.8"}
+  cheshire {:mvn/version "5.8.0"}}
 
  :paths ["src" "resources"]
  
