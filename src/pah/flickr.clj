@@ -3,10 +3,10 @@
             [cheshire.core :as json]
             [clojure.string :as string]))
 
-(defstruct api-info :api-key)
+(defn api-info [api-key] {::api-key api-key})
 
 (defn base-params [api-info method]
-  {"api_key" (:api-key api-info)
+  {"api_key" (::api-key api-info)
    "method" method
    "format" "json"})
 
@@ -50,3 +50,5 @@
   (def u (user a "jkseeker"))
   (def p (photosets a (:user/id u)))
   (def ps (photoset-photos a (:photoset/id (first p)))))
+  
+  
