@@ -38,10 +38,13 @@
     (map make-photoset photosets)))
 
 (defn make-photo [data]
-  {:photo/id (get-in data ["photo" "id"])
-   :photo/title (get-in data ["photo" "title" "_content"])
-   :photo/description (get-in data ["photo" "description" "_content"])
-   :photo/page-url (get (first (filter #(= (get % "type") "photopage") (get-in data ["photo" "urls" "url"]))) "_content")})
+  (let [photo (get data "photo")
+        urls (get-in photo ["urls" "url"])
+        photopage-url (first (filter #(= "photopage" (get % "type")) urls))]
+    {:photo/id (get photo "id")
+     :photo/title (get-in photo ["title" "_content"])
+     :photo/description (get-in photo ["description" "_content"])
+     :photo/flickr-page-url (get photopage-url "_content")}))
 
 (defn photo [api-info photo-id]
   (let [data (request api-info "flickr.photos.getInfo" {"photo_id" photo-id})]
@@ -53,8 +56,14 @@
         photo-ids (map #(get % "id") photos)]
     (map (partial photo api-info) photo-ids)))
 
+(defn label-keyword [label]
+  (-> label
+      (string/lower-case)
+      (string/replace #" " "-")
+      (keyword)))
+
 (defn make-size [data]
-  {:size/label (keyword (string/replace (string/lower-case (get data "label")) #" " "-"))
+  {:size/label (label-keyword (get data "label"))
    :size/source (get data "source")})
 
 (defn photo-sizes [api-info {photo-id :photo/id}]
