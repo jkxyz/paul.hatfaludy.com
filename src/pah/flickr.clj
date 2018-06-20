@@ -32,23 +32,38 @@
    :photoset/description (get-in data ["description" "_content"])
    :photoset/photos-count (get data "photos")})
 
-(defn photosets [api-info user-id]
+(defn user-photosets [api-info {user-id :user/id}]
   (let [data (request api-info "flickr.photosets.getList" {"user_id" user-id})
         photosets (get-in data ["photosets" "photoset"])]
     (map make-photoset photosets)))
 
 (defn make-photo [data]
-  {:photo/id (get data "id")
-   :photo/title (get data "title")})
+  {:photo/id (get-in data ["photo" "id"])
+   :photo/title (get-in data ["photo" "title" "_content"])
+   :photo/description (get-in data ["photo" "description" "_content"])
+   :photo/page-url (get (first (filter #(= (get % "type") "photopage") (get-in data ["photo" "urls" "url"]))) "_content")})
 
-(defn photoset-photos [api-info photoset-id]
+(defn photo [api-info photo-id]
+  (let [data (request api-info "flickr.photos.getInfo" {"photo_id" photo-id})]
+    (make-photo data)))
+
+(defn photoset-photos [api-info {photoset-id :photoset/id}]
   (let [data (request api-info "flickr.photosets.getPhotos" {"photoset_id" photoset-id})
-        photos (get-in data ["photoset" "photo"])]
-    (map make-photo photos)))
-       
+        photos (get-in data ["photoset" "photo"])
+        photo-ids (map #(get % "id") photos)]
+    (map (partial photo api-info) photo-ids)))
+
+(defn make-size [data]
+  {:size/label (keyword (string/replace (string/lower-case (get data "label")) #" " "-"))
+   :size/source (get data "source")})
+
+(defn photo-sizes [api-info {photo-id :photo/id}]
+  (let [data (request api-info "flickr.photos.getSizes" {"photo_id" photo-id})
+        sizes (get-in data ["sizes" "size"])]
+    (map make-size sizes)))
+
 (comment
   (def u (user a "jkseeker"))
-  (def p (photosets a (:user/id u)))
-  (def ps (photoset-photos a (:photoset/id (first p)))))
-  
-  
+  (def p (user-photosets a u))
+  (def ps (photoset-photos a (first p)))
+  (photo-sizes a (first ps)))
