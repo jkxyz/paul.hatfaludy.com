@@ -2,7 +2,8 @@
   (:require [compojure.core :refer [GET] :as compojure]
             [compojure.route :refer [not-found]]
             [hiccup.page :refer [html5]]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [pah.flickr :as flickr]))
 
 (defn layout [{:keys [title] :or {title "Hatfaludy Paul-Alin"}} content]
   (html5
@@ -13,15 +14,28 @@
     [:title title]
     content))
 
-(defn home-page [req]
-  (layout
-    {}
-    [:h1 "HH"]))
+(defn photos [flickr-api-info]
+  (let [user (flickr/user flickr-api-info "jkseeker")
+        photosets (flickr/user-photosets flickr-api-info user)
+        photos (flickr/photoset-photos flickr-api-info (first photosets))]
+    photos))
 
-(defn routes []
+(defn medium-url [flickr-api-info photo]
+  (:size/source (first (filter #(= :medium (:size/label %)) (flickr/photo-sizes flickr-api-info photo)))))
+
+(defn home-page [req flickr-api-info]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body
+    (layout
+      {}
+      (for [photo (photos flickr-api-info)]
+        [:img {:src (medium-url flickr-api-info photo)}]))})
+
+(defn routes [flickr-api-info]
   (compojure/routes
-    (GET "/" [] home-page)))
+    (GET "/" req (home-page req flickr-api-info))))
 
-(defn app-handler []
-  (-> (routes)
+(defn app-handler [flickr-api-info]
+  (-> (routes flickr-api-info)
       (wrap-defaults site-defaults)))

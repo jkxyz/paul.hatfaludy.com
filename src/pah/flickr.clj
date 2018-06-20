@@ -70,9 +70,3 @@
   (let [data (request api-info "flickr.photos.getSizes" {"photo_id" photo-id})
         sizes (get-in data ["sizes" "size"])]
     (map make-size sizes)))
-
-(comment
-  (def u (user a "jkseeker"))
-  (def p (user-photosets a u))
-  (def ps (photoset-photos a (first p)))
-  (photo-sizes a (first ps)))
