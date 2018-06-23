@@ -2,40 +2,37 @@
   (:require [compojure.core :refer [GET] :as compojure]
             [compojure.route :refer [not-found]]
             [hiccup.page :refer [html5]]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [pah.flickr :as flickr]))
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (defn layout [{:keys [title] :or {title "Hatfaludy Paul-Alin"}} content]
   (html5
     {:lang "en"}
     [:meta {:charset "utf-8"}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
-    [:link {:rel "stylesheet" :href "/assets/styles.css"}]
+    [:link {:rel "stylesheet" :href "/assets/stylesheets/application.css"}]
     [:title title]
-    content))
+    [:div.container
+     [:header.header
+      [:h1.header-title
+       [:a {:href "/"} "Hatfaludy Paul-Alin"]]
+      [:h2.header-sub
+       "Photographer in Oradea."]]
+     content]))
 
-(defn photos [flickr-api-info]
-  (let [user (flickr/user flickr-api-info "jkseeker")
-        photosets (flickr/user-photosets flickr-api-info user)
-        photos (flickr/photoset-photos flickr-api-info (first photosets))]
-    photos))
+(defn home-page-body []
+  (layout
+    {}
+    [:div]))
 
-(defn medium-url [flickr-api-info photo]
-  (:size/source (first (filter #(= :medium (:size/label %)) (flickr/photo-sizes flickr-api-info photo)))))
-
-(defn home-page [req flickr-api-info]
+(defn home-page [req]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body
-    (layout
-      {}
-      (for [photo (photos flickr-api-info)]
-        [:img {:src (medium-url flickr-api-info photo)}]))})
+   :body (home-page-body)})
 
-(defn routes [flickr-api-info]
+(defn routes []
   (compojure/routes
-    (GET "/" req (home-page req flickr-api-info))))
+    (GET "/" req (home-page req))))
 
-(defn app-handler [flickr-api-info]
-  (-> (routes flickr-api-info)
+(defn app-handler []
+  (-> (routes)
       (wrap-defaults site-defaults)))
