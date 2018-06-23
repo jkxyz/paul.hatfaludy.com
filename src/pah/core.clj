@@ -24,15 +24,15 @@
     {}
     [:div]))
 
-(defn home-page [req]
+(defn home-page [req flickr]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (home-page-body)})
 
-(defn routes []
+(defn routes [flickr]
   (compojure/routes
-    (GET "/" req (home-page req))))
+    (GET "/" req (home-page req flickr))))
 
-(defn app-handler []
-  (-> (routes)
+(defn app-handler [flickr]
+  (-> (routes flickr)
       (wrap-defaults site-defaults)))
