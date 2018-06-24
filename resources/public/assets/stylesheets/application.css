@@ -2,7 +2,7 @@
 @import "./normalize.css";
 
 body {
-  background: #fafafa;
+  background: #F5F7FA;
 }
 
 a {
@@ -10,14 +10,18 @@ a {
 }
 
 .container {
-  max-width: 60rem;
+  max-width: 80rem;
   padding: 3rem 1rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .container {
     padding: 3rem 6rem;
   }
+}
+
+.header {
+  padding-bottom: 2rem;
 }
 
 .header-title {
@@ -32,11 +36,11 @@ a {
 }
 
 .header-title > a {
-  color: #222;
+  color: #0A1726;
   text-decoration: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .header-title {
     text-align: initial;
   }
@@ -46,14 +50,64 @@ a {
   font-family: "Lora", serif;
   font-style: italic;
   font-size: 1rem;
-  margin: 1.2rem 0;
+  margin: 1.2rem 0 0 0;
   line-height: 1;
-  color: #444;
+  color: #46678C;
   text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
   .header-sub {
     text-align: initial;
   }
+}
+
+.photoset {
+  margin: 3rem 0;
+}
+
+.photoset-title {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  line-height: 1;
+  color: #0A1726;
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
+  .photoset-title {
+    text-align: initial;
+  }
+}
+
+.photoset-photos {
+}
+
+@media (min-width: 1000px) {
+  .photoset-photos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.photo {
+  display: block;
+  padding: .5rem;
+  margin-bottom: 2rem;
+  background: white;
+}
+
+@media (min-width: 1000px) {
+  .photo {
+    width: calc(50% - 4rem);
+    margin-right: 2rem;
+  }
+}
+
+.photo > img {
+  width: 100%;
+  display: block;
 }
