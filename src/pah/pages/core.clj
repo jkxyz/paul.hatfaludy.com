@@ -1,6 +1,10 @@
 (ns pah.pages.core
   (:require [hiccup.page :refer [html5]]))
 
+(defn root-path []
+  (or (some->> (System/getenv "UP_STAGE") (str "/"))
+      ""))
+
 (defn layout 
   [{:keys [title] :or {title "Hatfaludy Paul-Alin"}}
    content]
@@ -8,7 +12,7 @@
     {:lang "en"}
     [:meta {:charset "utf-8"}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
-    [:link {:rel "stylesheet" :href "/assets/stylesheets/application.css"}]
+    [:link {:rel "stylesheet" :href (str (root-path) "/assets/stylesheets/application.css")}]
     [:title title]
     [:div.container
      [:header.header

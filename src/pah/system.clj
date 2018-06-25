@@ -32,8 +32,8 @@
     :server (component/using (new-server {})
                              {:flickr :flickr})))
 
-(defn new-production-system [{:keys [flickr-api-key]}]
+(defn new-production-system [{:keys [flickr-api-key port]}]
   (component/system-map
     :flickr (flickr/api-info flickr-api-key)
-    :server (component/using (new-server {:join? true})
+    :server (component/using (new-server {:join? true :port port})
                              {:flickr :flickr})))

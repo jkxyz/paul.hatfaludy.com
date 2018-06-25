@@ -2,3 +2,4 @@
 /.cpcache
 /dev-config.edn
 /target
+/.lein-repl-history
