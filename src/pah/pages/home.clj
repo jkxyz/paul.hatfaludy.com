@@ -1,5 +1,5 @@
 (ns pah.pages.home
-  (:require [pah.pages.core :refer [layout]]
+  (:require [pah.pages.core :refer [layout root-path]]
             [ring.util.response :refer [response content-type]]
             [flickr.user :as fuser]
             [flickr.photoset :as photoset]
