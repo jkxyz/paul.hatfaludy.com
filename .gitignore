@@ -1,3 +1,4 @@
-.nrepl-port
-.cpcache
+/.nrepl-port
+/.cpcache
 /dev-config.edn
+/target
