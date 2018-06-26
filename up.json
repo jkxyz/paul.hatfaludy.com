@@ -8,6 +8,9 @@
     "memory": 1536
   },
   "stages": {
+    "staging": {
+      "domain": "staging.paul.hatfaludy.com"
+    },
     "production": {
       "domain": "paul.hatfaludy.com"
     }

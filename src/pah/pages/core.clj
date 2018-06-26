@@ -2,8 +2,7 @@
   (:require [hiccup.page :refer [html5]]))
 
 (defn root-path []
-  (or (some->> (System/getenv "UP_STAGE") (str "/" "/"))
-      "/"))
+  "/")
 
 (defn layout 
   [{:keys [title] :or {title "Hatfaludy Paul-Alin"}}
