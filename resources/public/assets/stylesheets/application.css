@@ -9,19 +9,15 @@ a {
   color: #555;
 }
 
-.container {
-  max-width: 80rem;
-  padding: 3rem 1rem;
+
+.header {
+  padding: 3rem 1rem 2rem 1rem;
 }
 
 @media (min-width: 1000px) {
-  .container {
-    padding: 3rem 6rem;
+  .header {
+    padding: 4rem 6rem;
   }
-}
-
-.header {
-  padding-bottom: 2rem;
 }
 
 .header-title {
@@ -42,6 +38,7 @@ a {
 
 @media (min-width: 1000px) {
   .header-title {
+    font-size: 1.5rem;
     text-align: initial;
   }
 }
@@ -58,12 +55,54 @@ a {
 
 @media (min-width: 1000px) {
   .header-sub {
+    font-size: 1.1rem;
     text-align: initial;
   }
 }
 
+.message {
+  font-family: "Lora", serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 1rem -1rem 2rem -1rem;
+  padding: 2rem 3rem;
+  background: white;
+}
+
+.message > p {
+  margin: 0 auto;
+  max-width: 30rem;
+}
+
+@media (min-width: 1000px) {
+  .message {
+    font-size: 1.2rem;
+    padding: 3rem 6rem;
+    margin: 1rem 0 0 0;
+  }
+
+  .message > p {
+    margin: 0;
+  }
+}
+
+.message > .message-signed {
+  text-align: right;
+  margin-top: 1rem;
+}
+
 .photoset {
   margin: 3rem 0;
+  max-width: 80rem;
+  padding: 1rem 1rem;
+}
+
+@media (min-width: 1000px) {
+  .photoset {
+    padding: 2rem 6rem;
+  }
 }
 
 .photoset-title {
@@ -71,7 +110,7 @@ a {
   text-transform: uppercase;
   font-size: 1.3rem;
   font-weight: 600;
-  margin: 0 0 2rem 0;
+  margin: 0 0 3rem 0;
   line-height: 1;
   color: #0A1726;
   text-align: center;

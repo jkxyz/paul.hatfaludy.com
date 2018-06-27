@@ -29,6 +29,13 @@
 (defn render [photosets]
   (layout
     {:title "Hatfaludy Paul-Alin – Photographer in Oradea"}
+    [:div.message
+     [:p
+      [:strong "Hey Paul, this site is just for you. "]
+      "Your own bespoke site for whatever you want, but I thought that photography was a
+      great place to start. You can add new photos using Flickr and they'll automatically 
+      show up here. I hope you like it so far; I had fun making it."]
+     [:p.message-signed "— Charles"]]
     (for [{:keys [title photos]} photosets]
       [:div.photoset
        [:h3.photoset-title title]

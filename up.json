@@ -9,7 +9,7 @@
   },
   "stages": {
     "staging": {
-      "domain": "staging.paul.hatfaludy.com"
+      "domain": "staging.hatfaludy.com"
     },
     "production": {
       "domain": "paul.hatfaludy.com"

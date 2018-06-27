@@ -6,7 +6,7 @@
 
 (defn layout 
   [{:keys [title] :or {title "Hatfaludy Paul-Alin"}}
-   content]
+   & content]
   (html5
     {:lang "en"}
     [:meta {:charset "utf-8"}]
